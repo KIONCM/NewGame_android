@@ -1,2 +1,2 @@
 # NewGame_android
-Android APp
+Android App
