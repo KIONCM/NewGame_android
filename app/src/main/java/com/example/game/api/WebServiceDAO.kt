@@ -1,13 +1,13 @@
 package com.example.game.api
 
-import com.example.game.pojo.models.RegisterModel
+import com.example.game.pojo.models.User
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface WebServiceDAO {
 
 
     @POST("/api/Account")
-    fun register(@Body model: RegisterModel): Single<Response>
+    @Headers("accept: */*","Content-Type: application/json")
+    fun register(@Body model: User): Single<Response>
 }
