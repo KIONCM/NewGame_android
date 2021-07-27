@@ -9,18 +9,217 @@
             type="com.example.game.ui.register.RegisterViewModel" />
 
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.register.RegisterActivity">
-
-        <Button
-            android:layout_width="wrap_content"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:onClick="@{ ()-> vm.login()}"/>
+            tools:context=".ui.register.RegisterActivity"
+            android:padding="16dp"
+            >
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/profilePicture_iv"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_camera"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                app:civ_circle_color="@color/purple_200"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/requiredLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* Required"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profilePicture_iv"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/verticalGuideLine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.12"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_person"
+                app:layout_constraintBottom_toBottomOf="@id/firstName_til"
+                app:layout_constraintEnd_toStartOf="@id/verticalGuideLine"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/firstName_til"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/firstName_til"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/verticalGuideLine"
+                app:layout_constraintTop_toBottomOf="@id/requiredLabel"
+                app:layout_constraintEnd_toStartOf="@id/lastName_til"
+                android:layout_marginTop="16dp"
+                android:hint="First name*"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/firstName_tie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@={vm.firstName}"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lastName_til"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/firstName_til"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/firstName_til"
+                android:layout_marginStart="16dp"
+                android:hint="Last name*"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastName_tie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:text="@={vm.lastName}"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_email"
+                app:layout_constraintBottom_toBottomOf="@id/email_til"
+                app:layout_constraintEnd_toStartOf="@id/verticalGuideLine"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/email_til"
+                android:layout_marginEnd="16dp"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_til"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/verticalGuideLine"
+                app:layout_constraintTop_toBottomOf="@id/firstName_til"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:hint="Email*"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_tie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="textEmailAddress"
+                    android:text="@={vm.email}"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userType_til"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                app:endIconMode="dropdown_menu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_til"
+                app:layout_constraintStart_toEndOf="@id/userName_til"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:hint="Select Type*"
+
+                >
+
+                <AutoCompleteTextView
+                    android:id="@+id/userType_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"
+                    android:text="@={vm.userType}"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userName_til"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/verticalGuideLine"
+                app:layout_constraintTop_toBottomOf="@id/email_til"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toStartOf="@id/userType_til"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                android:hint="User name"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userName_tie"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"
+                    android:enabled="false"
+                    android:maxLines="1"
+                    android:textIsSelectable="true"
+                    android:editable="false"
+                    android:text="@={vm.userName}"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_lock"
+                app:layout_constraintBottom_toBottomOf="@id/password_til"
+                app:layout_constraintEnd_toStartOf="@id/verticalGuideLine"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/password_til"
+                android:layout_marginEnd="16dp"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_til"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:endIconMode="password_toggle"
+                app:layout_constraintStart_toEndOf="@id/verticalGuideLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userType_til"
+                android:hint="Password*"
+                android:layout_marginTop="16dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_tie"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"
+                    android:text="@={vm.password}"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/register_btn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/password_til"
+                app:layout_constraintStart_toEndOf="@id/verticalGuideLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:text="Register"
+                android:textAllCaps="false"
+                android:onClick="@{() -> vm.register()}"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
 </layout>

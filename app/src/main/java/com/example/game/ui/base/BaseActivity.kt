@@ -21,6 +21,7 @@ abstract class BaseActivity<VM: BaseViewModel<*>,DB: ViewDataBinding> : AppCompa
 
         viewModel = ViewModelProvider(this).get(initializeViewModel()::class.java)
         binding  = DataBindingUtil.setContentView(this,inflateLayout())
+        observers()
 
     }
 
