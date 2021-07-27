@@ -31,6 +31,8 @@ class RegisterActivity : BaseActivity<RegisterViewModel,ActivityRegisterBinding>
 
     }
 
+    val foo :Int by lazy { 10 }
+
     override fun initializeViewModel()= RegisterViewModel()
 
     override fun inflateLayout() = R.layout.activity_register

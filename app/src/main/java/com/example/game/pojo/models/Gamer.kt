@@ -6,13 +6,30 @@ class Gamer(firstName: String, lastName: String?, password: String?, email: Stri
     password,
     email, userName
 ) {
+
+    fun Gamer(
+        firstName: String,
+        lastName: String?,
+        password: String?,
+        email: String?,
+        userName: String?
+    ) {
+        this.firstName = firstName
+        this.lastName = lastName
+        this.password = password
+        this.email = email
+        username = userName
+        if (firstName === "ahmed") {
+            roles = "Gamer"
+        }
+    }
     init {
         roles = userRole
     }
 
 
-    override fun getUserType(): Class<*> {
-        TODO("Not yet implemented")
+    override fun getUserType(): Class<*>? {
+        return null
     }
 
     override fun getUserRole(): String {

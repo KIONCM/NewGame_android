@@ -19,6 +19,7 @@
             tools:context=".ui.register.RegisterActivity"
             android:padding="16dp"
             >
+
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/profilePicture_iv"
                 android:layout_width="50dp"
@@ -171,6 +172,7 @@
                     android:maxLines="1"
                     android:textIsSelectable="true"
                     android:editable="false"
+                    android:text="@={vm.userName}"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -193,6 +195,7 @@
                 app:layout_constraintStart_toEndOf="@id/verticalGuideLine"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/userType_til"
+                android:hint="Password*"
                 android:layout_marginTop="16dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password_tie"

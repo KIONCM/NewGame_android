@@ -7,10 +7,14 @@ class UserFactory {
                 Fan(firstName = user.firstName,lastName = user.lastName,password = user.password,email = user.email,userName = user.username)
             }
             "Gamer"->{
-                Gamer(firstName = user.firstName,lastName = user.lastName,password = user.password,email = user.email, userName = user.username)
+                Gamer(firstName = user.firstName,lastName = user.lastName,password = user.password,email = user.email, userName = user.username).apply {
+                    roles = "Gamer"
+                }
             }
             else ->{
-                Player(firstName = user.firstName,lastName = user.lastName,password = user.password,email = user.email,userName = user.username)
+                Player(firstName = user.firstName,lastName = user.lastName,password = user.password,email = user.email,userName = user.username).apply {
+                    roles = "Player"
+                }
 
             }
         }

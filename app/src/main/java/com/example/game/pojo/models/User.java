@@ -43,6 +43,11 @@ public class User implements IUser {
         this.email = email;
         this.username = userName;
 
+
+        if (firstName=="ahmed"){
+            this.roles = "Gamer";
+        }
+
     }
 
 
