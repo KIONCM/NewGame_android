@@ -13,6 +13,8 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import retrofit2.Call
+import retrofit2.Callback
 import java.util.*
 
 class RegisterViewModel : BaseViewModel<Navigator>() {
@@ -32,8 +34,8 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
 
     fun register() {
         loader.value = true
-        if (isDataValid()){
-            val user = getUser(userType.value!!,User(firstName.value,lastName.value,password.value,email.value,userName.value))
+        if (true){
+            //val user = getUser(userType.value!!,User(firstName.value,lastName.value,password.value,email.value,userName.value))
             Log.d(TAG, "register:firstName ${firstName.value} ")
             Log.d(TAG, "register:last ${lastName.value} ")
             Log.d(TAG, "register:user ${userName.value} ")
@@ -41,22 +43,22 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
             Log.d(TAG, "register:password ${password.value} ")
             Log.d(TAG, "register:email ${email.value} ")
 
-            Log.d(TAG, "user :firstName ${user.firstName} ")
+        /*    Log.d(TAG, "user :firstName ${user.firstName} ")
             Log.d(TAG, "user :last ${user.lastName} ")
             Log.d(TAG, "user :email ${user.email} ")
             Log.d(TAG, "user :password ${user.password} ")
             Log.d(TAG, "user :role  ${user.roles} ")
             Log.d(TAG, "user :user ${user.username} ")
-
+*/
             val map = hashMapOf<String,String>()
-            map["username"] = "userNameTest"
+            map["username"] = "userNameTest500"
             map["firstName"] = "firstNameTest"
             map["lastName"] = "lastNameTest"
             map["email"] = "email1234@test.com"
             map["password"] = "1234567890@Aa"
             map["pofilePicture"] = "null"
             map["roles"] = "Gamer"
-            RetrofitClient.getApis().register(map).subscribeOn(Schedulers.io())
+            /*RetrofitClient.getApis().register(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).unsubscribeOn(Schedulers.io())
                 .subscribe(object :Observer<Response> {
                     override fun onSubscribe(d: Disposable) {
@@ -79,7 +81,7 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
                     }
 
                 }
-                )
+                )*/
               /*  {
                     override fun onSubscribe(d: Disposable) {
                         Log.d(TAG, "onSubscribe: ${d.isDisposed}")
@@ -104,6 +106,37 @@ class RegisterViewModel : BaseViewModel<Navigator>() {
                     }
 
                 }*/
+
+            RetrofitClient.getApis().register2(map).enqueue(object : Callback<Response> {
+                override fun onResponse(
+                    call: Call<Response>,
+                    response: retrofit2.Response<Response>
+                ) {
+                    if (response.isSuccessful){
+                        navigator?.success()
+                        Log.d(TAG, "onResponse: ${response.body()?.statues_code}")
+                        Log.d(TAG, "onResponse: ${response.body()?.message}")
+                        Log.d(TAG, "onResponse: ${response.message()}")
+
+                    }
+                    else if (!response.isSuccessful){
+                        navigator?.failed(response.message())
+                        Log.d(TAG, "onResponse: failed ${response.body()?.statues_code}")
+                        Log.d(TAG, "onResponse:failed ${response.body()?.message}")
+                        Log.d(TAG, "onResponse: failed${response.message()}")
+
+                    }
+                    loader.value = false
+                }
+
+                override fun onFailure(call: Call<Response>, t: Throwable) {
+                    navigator?.failed(t.localizedMessage)
+
+                    Log.d(TAG, "onResponse: failure ${t.message}")
+                    Log.d(TAG, "onResponse: failure ${t.localizedMessage}")
+                    loader.value = false
+                }
+            })
 
         }else {
             loader.value = false
